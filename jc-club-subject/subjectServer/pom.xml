@@ -18,11 +18,43 @@
     </properties>
 <dependencies>
     <dependency>
-            <groupId>com.jiangying</groupId>
-            <artifactId>subjectCommon</artifactId>
-            <version>1.0-SNAPSHOT</version>
-
+        <groupId>com.jiangying</groupId>
+        <artifactId>subjectCommon</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </dependency>
+
+    <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+    </dependency>
+
+    <!-- Sa-Token 权限认证，在线文档：https://sa-token.cc -->
+    <dependency>
+        <groupId>cn.dev33</groupId>
+        <artifactId>sa-token-spring-boot-starter</artifactId>
+        <version>1.38.0</version>
+    </dependency>
+    <dependency>
+        <groupId>cn.dev33</groupId>
+        <artifactId>sa-token-redis-jackson</artifactId>
+        <version>1.38.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-pool2</artifactId>
+    </dependency>
+    <!-- Sa-Token 整合 jwt -->
+<!--    <dependency>-->
+<!--        <groupId>cn.dev33</groupId>-->
+<!--        <artifactId>sa-token-jwt</artifactId>-->
+<!--        <version>1.38.0</version>-->
+<!--    </dependency>-->
+
+
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-web</artifactId>
@@ -102,4 +134,22 @@
     </dependency>
 
 </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

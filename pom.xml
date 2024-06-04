@@ -10,6 +10,8 @@
     <packaging>pom</packaging>
     <modules>
      <module>jc-club-subject</module>
+        <module>jc-club-gateway</module>
+        <module>jc-club-gateway/gatewayServer</module>
     </modules>
 
     <properties>

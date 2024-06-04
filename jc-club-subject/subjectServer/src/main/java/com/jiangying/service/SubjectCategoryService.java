@@ -1,8 +1,8 @@
 package com.jiangying.service;
 
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jiangying.pojo.entity.SubjectCategory;
+import com.jiangying.pojo.vo.CategoryAndLabel;
 
 import java.util.List;
 
@@ -55,5 +55,9 @@ public interface SubjectCategoryService {
      */
     boolean deleteById(Long id);
 
-    List<SubjectCategory> queryByCategoryTypeId(Long categoryType);
+    List<SubjectCategory> queryByCategoryTypeId(Integer categoryType);
+
+    List<SubjectCategory> queryCategoryByPrimary(Long parentId, Integer categoryType);
+
+    List<CategoryAndLabel> queryCategoryAndLabel(Long id);
 }

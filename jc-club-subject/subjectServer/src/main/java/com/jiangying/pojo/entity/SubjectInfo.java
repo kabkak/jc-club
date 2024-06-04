@@ -62,7 +62,7 @@ public class SubjectInfo implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    private Integer isDeleted;
+    private Integer isDeleted = 0;
 
 
     public Long getId() {

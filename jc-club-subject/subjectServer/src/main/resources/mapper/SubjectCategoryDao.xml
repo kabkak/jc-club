@@ -21,7 +21,20 @@
         from subject_category
         where id = #{id}
     </select>
- 
+    <select id="queryListById" resultMap="SubjectCategoryMap">
+        select id,
+               category_name,
+               category_type,
+               image_url,
+               parent_id,
+               created_by,
+               created_time,
+               update_by,
+               update_time,
+               is_deleted
+        from subject_category
+        where parent_id = #{parentId}
+    </select>
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="SubjectCategoryMap">
         select  id, category_name, category_type, image_url, parent_id, created_by, created_time, update_by, update_time, is_deleted
@@ -98,7 +111,7 @@
             </if>
         </where>
     </select>
- 
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into subject_category(category_name, category_type, image_url, parent_id, created_by, created_time, update_by, update_time, is_deleted)

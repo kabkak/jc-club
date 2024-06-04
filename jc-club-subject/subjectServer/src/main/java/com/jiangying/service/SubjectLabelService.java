@@ -1,6 +1,9 @@
 package com.jiangying.service;
 
 import com.jiangying.pojo.entity.SubjectLabel;
+import com.jiangying.pojo.vo.SubjectLabelVO;
+
+import java.util.List;
 
 
 /**
@@ -18,6 +21,7 @@ public interface SubjectLabelService {
      * @return 实例对象
      */
     SubjectLabel queryById(Long id);
+    List<SubjectLabelVO> queryByCategoryId(Long categoryId);
 
     /**
      * 分页查询
@@ -51,5 +55,8 @@ public interface SubjectLabelService {
      * @return 是否成功
      */
     boolean deleteById(Long id);
+
+
+    List<SubjectLabelVO> queryByLabelIdList(List labelIdList);
 
 }

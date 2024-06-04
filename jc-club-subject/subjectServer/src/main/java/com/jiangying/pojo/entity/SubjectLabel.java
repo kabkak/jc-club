@@ -42,7 +42,7 @@ public class SubjectLabel implements Serializable {
      */
     private Date updateTime;
 
-    private Integer isDeleted;
+    private Integer isDeleted = 0;
 
 
     public Long getId() {

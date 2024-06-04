@@ -2,9 +2,11 @@ package com.jiangying.controller;
 
 
 import com.jiangying.pojo.entity.SubjectCategory;
+import com.jiangying.pojo.vo.CategoryAndLabel;
 import com.jiangying.result.Result;
 import com.jiangying.service.SubjectCategoryService;
 
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +21,7 @@ import java.util.List;
  * @since 2024-05-31 16:21:33
  */
 @RestController
-@RequestMapping("subjectCategory")
+@RequestMapping("category")
 public class SubjectCategoryController {
     /**
      * 服务对象
@@ -45,7 +47,7 @@ public class SubjectCategoryController {
      * @param categoryType 主键
      * @return 单条数据
      */
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Result<SubjectCategory> queryById(@PathVariable("id") @Validated Long categoryType) {
         if (ObjectUtils.isEmpty(this.subjectCategoryService.queryById(categoryType))) {
             return Result.error("查询失败");
@@ -53,15 +55,39 @@ public class SubjectCategoryController {
         return Result.success(this.subjectCategoryService.queryById(categoryType));
     }
 
+    @PostMapping("/queryCategoryAndLabel")
+    public Result<List<CategoryAndLabel>> queryCategoryAndLabel(@Validated Long id) {
+        List<CategoryAndLabel> categoryAndLabelList = this.subjectCategoryService.queryCategoryAndLabel(id);
+        if (CollectionUtils.isEmpty(categoryAndLabelList)) {
+            return Result.error("查询失败");
+        }
+        return Result.success(categoryAndLabelList);
+    }
+
     /**
-     * 查询分类
+     * 查询一级分类
      *
      * @param categoryType
      * @return
      */
     @PostMapping("/queryPrimaryCategory")
-    public Result<List<SubjectCategory>> queryCategoryTypeById(@Validated Long categoryType) {
+    public Result<List<SubjectCategory>> queryCategoryTypeById(@Validated Integer categoryType) {
         List<SubjectCategory> subjectCategory = this.subjectCategoryService.queryByCategoryTypeId(categoryType);
+        if (ObjectUtils.isEmpty(subjectCategory)) {
+            return Result.error("查询失败");
+        }
+        return Result.success(subjectCategory);
+    }
+
+    /**
+     * 查询分类及标签
+     *
+     * @param categoryType
+     * @return
+     */
+    @PostMapping("/queryCategoryByPrimary")
+    public Result<List<SubjectCategory>> queryCategoryByPrimary(@RequestParam("parentId") Long parentId, @RequestParam("categoryType") @Validated Integer categoryType) {
+        List<SubjectCategory> subjectCategory = this.subjectCategoryService.queryCategoryByPrimary(parentId, categoryType);
         if (ObjectUtils.isEmpty(subjectCategory)) {
             return Result.error("查询失败");
         }
@@ -98,7 +124,14 @@ public class SubjectCategoryController {
      */
     @DeleteMapping
     public Result<Boolean> deleteById(Long id) {
-        return Result.success(this.subjectCategoryService.deleteById(id));
+        SubjectCategory subjectCategoryByid = this.subjectCategoryService.queryById(id);
+        if (ObjectUtils.isEmpty(subjectCategoryByid))
+            return Result.error("删除失败");
+        SubjectCategory subjectCategory = new SubjectCategory();
+        subjectCategory.setId(id);
+        subjectCategory.setIsDeleted(1);
+        this.subjectCategoryService.update(subjectCategory);
+        return Result.success();
     }
 
 }

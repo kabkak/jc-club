@@ -84,7 +84,12 @@ public interface SubjectCategoryDao {
      */
     int deleteById(Long id);
 
-    @Select("select * from subject_category where category_type = #{categoryType}")
-    List<SubjectCategory> queryByCategoryTypeId(Long categoryType);
+    @Select("select * from subject_category where category_type = #{categoryType} and is_deleted = 0")
+    List<SubjectCategory> queryByCategoryTypeId(Integer categoryType);
+
+    @Select("select * from subject_category where parent_id = #{parentId} and category_type = #{categoryType} and is_deleted = 0")
+    List<SubjectCategory> queryCategoryByPrimary(@Param("parentId") Long parentId,@Param("categoryType") Integer categoryType);
+
+    List<SubjectCategory> queryListById(Long parentId);
 }
 

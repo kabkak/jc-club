@@ -1,6 +1,8 @@
 package com.jiangying.mapper;
 
+
 import com.jiangying.pojo.entity.SubjectLabel;
+import com.jiangying.pojo.vo.SubjectLabelVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -79,5 +81,8 @@ public interface SubjectLabelDao {
      */
     int deleteById(Long id);
 
+   List<SubjectLabelVO>  queryByCategoryId(Long categoryId);
+
+    List<SubjectLabelVO> queryByLabelIdList(@Param("labelIdList")List labelIdList);
 }
 

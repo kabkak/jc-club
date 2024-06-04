@@ -2,11 +2,13 @@ package com.jiangying.service.impl;
 
 import com.jiangying.pojo.entity.SubjectLabel;
 import com.jiangying.mapper.SubjectLabelDao;
+import com.jiangying.pojo.vo.SubjectLabelVO;
 import com.jiangying.service.SubjectLabelService;
 import org.springframework.stereotype.Service;
 
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 题目标签表(SubjectLabel)表服务实现类
@@ -29,6 +31,12 @@ public class SubjectLabelServiceImpl implements SubjectLabelService {
     public SubjectLabel queryById(Long id) {
         return this.subjectLabelDao.queryById(id);
     }
+
+    @Override
+    public List<SubjectLabelVO> queryByCategoryId(Long categoryId) {
+        return this.subjectLabelDao.queryByCategoryId(categoryId);
+    }
+
 
     /**
      * 分页查询
@@ -76,5 +84,10 @@ public class SubjectLabelServiceImpl implements SubjectLabelService {
     @Override
     public boolean deleteById(Long id) {
         return this.subjectLabelDao.deleteById(id) > 0;
+    }
+
+    @Override
+    public List<SubjectLabelVO> queryByLabelIdList(List labelIdList) {
+        return subjectLabelDao.queryByLabelIdList(labelIdList);
     }
 }
